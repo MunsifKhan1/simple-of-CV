@@ -1,0 +1,263 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+}
+
+.chat-container {
+    font-family: arial;
+    display: none;
+    position: absolute;
+    text-align: center;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    max-height: 100%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(21, 73, 152, 0.2);
+    z-index: 1000;
+    margin-bottom: 5px;
+    border: 1px solid #ef6603;
+    border-radius: 8px;
+}
+
+.chat-logo {
+    height: 75px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 75px;
+    height: 75px;
+    background-image: url(./images/sat-logo.png);
+    background-size: cover;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid #f3eaea;
+    height: 50px;
+    border-radius: 8px;
+    color: #ef6603;
+    font-size:20px;
+    font-weight: bolder;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.mini-close {
+    width: 70px;
+    display: flex;
+}
+
+#minimize-btn {
+    border: none;
+    color: #ef6603;
+    background-color: transparent;
+    margin-left: 40px;
+}
+
+#close-btn {
+    border: none;
+    color: #ef6603;
+    background-color: transparent;
+}
+
+#chat-box {
+    flex-grow: 1;
+    /* Allow chat messages to grow and take up available space */
+    overflow-y: auto;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    height: 250px;
+    /* Ensure the chat box takes up full height */
+}
+
+#user-input {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ef6603;
+    border-radius: 5px;
+    background-color: #fff;
+    color: black;
+    font-size: 16px;
+}
+
+.send-button {
+    background-color: #ef6603;
+    border-radius: 5px;
+    border: 1px solid #ef6603;
+    margin-left: 10px;
+    height: 40px;
+    width: 70px;
+    color: white;
+}
+
+.chat-button {
+    /* height: 50px;
+    width: 50px; */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ef6603;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.chat-button:hover {
+    background-color: #050505;
+}
+
+
+
+.bot-message {
+    text-align: left;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.user-message {
+    background-color: #ef6603;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    width: fit-content;
+    float: right; /* Aligns message to the right */
+    margin: 10px 0; /* Space out user messages */
+ clear: both;   /* Ensures user message appears on a new line */
+    text-align: right; /* Align text within the bubble to the right */
+    max-width: 80%; /* Limit the width of the message bubble */
+}
+
+.bot-message {
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    width: fit-content;
+    float: left; /* Aligns bot message to the left */
+    margin: 10px 0; /* Space out bot messages */
+    clear: both; /* Ensures bot message appears on a new line */
+    max-width: 80%; /* Limit the width of the message bubble */
+}
+
+.bot-message {
+    background-color: black;
+    color: white;
+}
+
+form {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+
+/* Loading spinner */
+#loading-animation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.spinner {
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top: 5px solid #ef6603;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Scrollbar customization */
+#chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+#chat-box::-webkit-scrollbar-thumb {
+    background-color: #ef6603;
+    border-radius: 10px;
+}
+
+/* Typing animation */
+.typing-indicator {
+    color: #aaa;
+}
+
+
+
+/* Style for the suggestions */
+#suggestions {
+    margin-top: 5px;
+}
+
+.suggestion {
+    background-color: #ef6603;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    border: none;
+}
+
+.suggestion:hover {
+    background-color: #050505;
+}
+
+/* Style for the thank you note */
+.thank-you-note {
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+    color: black;
+    background-color: #faf6f6;
+    margin-top: 10px;
+}
+
+
+
+/* Icon container */
+.bot-icon-container {
+    display: flex;
+    align-items: center;
+    /* Center the icon and text vertically */
+}
+
+.bot-icon {
+    width: 30px;
+    /* Adjust the size of the icon */
+    height: 30px;
+    /* Adjust the size of the icon */
+    margin-right: 10px;
+    /* Space between icon and message */
+}

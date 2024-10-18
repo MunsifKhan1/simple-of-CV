@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<!-- <link rel="stylesheet" href="script.js"> -->
+
+<body>
+    <!-- Chat button to open the chatbot -->
+    <button class="chat-button" id="chat-button">💬</button>
+
+    <!-- Chatbot container -->
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+
+            <h2>SAT Chatbot</h2>
+            <div class="mini-close">
+                <button class="fa-duotone fa-solid fa-window-minimize"id="minimize-btn"></button>
+                <button class="fa-sharp fa-solid fa-xmark"id="close-btn"></button>
+            </div>
+        </div>
+        
+      
+
+        <div id="chat-box">
+            <div class="chat-logo">
+                <div class="logo"></div>
+                </div>
+            <div class="thank-you-note">
+                Thank you for using SAT Software House & Institute services!
+            </div>
+            <div id="suggestions">
+                <button class="suggestion">What are your hours?</button>
+                <button class="suggestion">How can I contact support?</button>
+                <button class="suggestion">What services do you offer?</button>
+            </div>
+            <div id="response-box"></div>
+          
+
+        </div>
+
+        <form id="chat-form">
+            <input type="text" id="user-input" name="message" placeholder="Type your message..." required>
+            <button class="send-button" type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Toggle chat container visibility on button click
+            $('#chat-button').on('click', function () {
+                $('#chat-container').toggle(); // Show/hide the chat container
+                $('#response-box').empty(); // Clear previous messages when opening
+                $('#user-input').val(''); // Clear input
+            });
+
+            // Close the chatbot
+            $('#close-btn').on('click', function () {
+                $('#chat-container').hide();
+            });
+
+            // Minimize the chatbot
+            $('#minimize-btn').on('click', function () {
+                $('#chat-box').toggle(); // Minimize the chat box
+                $('#chat-form').toggle(); // Minimize the input area
+            });
+
+            // Handle suggestion click
+            $('.suggestion').on('click', function () {
+                var suggestionText = $(this).text(); // Get the text of the clicked suggestion
+                $('#user-input').val(suggestionText); // Set the input field value to the suggestion
+            });
+
+            $('#chat-form').on('submit', function (e) {
+                e.preventDefault(); // Prevent default form submission
+                var userMessage = $('#user-input').val(); // Get user input
+                if (!userMessage) return;
+
+                // Display user message
+                $('#response-box').append('<p class="user-message">' + userMessage + '</p>');
+                $('#user-input').val(''); // Clear the input field after sending
+
+                // Display typing indicator
+                var typingIndicator = $('<p class="bot-message"><span class="bot-icon-container"><img src="/static/images/female_icon.png" class="bot-icon" alt="Gulalai"> <strong>Gulalai:</strong></span> <span class="typing-indicator">Typing...</span></p>');
+                $('#response-box').append(typingIndicator);
+
+                // Scroll to the bottom of the chat box
+                $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+
+                // Send AJAX request to Flask
+                $.ajax({
+                    type: 'POST',
+                    url: '/chat',
+                    data: { message: userMessage },
+                    success: function (response) {
+                        // Remove typing indicator
+                        typingIndicator.remove();
+
+                        // Display bot response
+                        var botResponse = '<p class="bot-message"><span class="bot-icon-container"><img src="/static/images/female_icon.png" class="bot-icon" alt="Gulalai"> <strong>Gulalai:</strong></span> ' + response.response + '</p>';
+                        $('#response-box').append(botResponse);
+
+                        // Scroll to the bottom of the chat box
+                        $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+                    },
+                    error: function () {
+                        // Handle error if the request fails
+                        typingIndicator.remove();
+                        $('#response-box').append('<p class="bot-message"><strong>Gulalai:</strong> Sorry, something went wrong. Please try again.</p>');
+                        $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
